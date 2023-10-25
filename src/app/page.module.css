@@ -3,7 +3,7 @@
 }
 
 .formcard {
-  @apply card w-96;
+  @apply w-96 bg-gray-900 p-4 rounded-lg shadow-lg;
 }
 
 .form {

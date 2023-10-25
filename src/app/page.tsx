@@ -1,31 +1,47 @@
+import Submit from "./components/submit_form";
 import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import styles from "./page.module.css";
+import submitLink from "./utils/actions/submit-link";
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.formcard}>
         <div className="p-2">
-          <form className={styles.form}>
+          <form className={styles.form} action={submitLink}>
             <div className={styles.formSection}>
               <Input
-                id="input-url"
+                id="url"
+                name="url"
                 type="text"
                 aria-label="Long Url"
                 placeholder="Enter long link here"
                 label="Shorten your URL"
               />
               <Input
+                id="title"
+                name="title"
+                type="text"
+                aria-label="Custom Title"
+                placeholder="Enter your title here"
+                label="Customize your Link"
+              />
+              <Input
+                id="description"
+                name="description"
+                type="text"
+                aria-label="Custom Description"
+                placeholder="Enter your description here"
+              />
+              <Input
                 id="alias"
+                name="alias"
                 type="text"
                 aria-label="Custom Alias"
                 placeholder="Enter your alias here"
-                label="Customize your Link"
               />
             </div>
-            <button className={styles.submit} type="submit">
-              Shorten URL
-            </button>
+            <Submit className={styles.submit} />
           </form>
         </div>
       </div>
