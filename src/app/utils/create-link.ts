@@ -1,6 +1,8 @@
 import { customAlphabet } from "nanoid";
 import connectToDatabase from "@/app/utils/mongodb";
 import { filterDifferentKeys } from "./filterDifferentKeys";
+import { CreateLinkReturnData } from "../types/create-link";
+import type { WithId, Document } from "mongodb";
 
 export enum COLLECTION_NAMES {
   "url-info" = "url-info",
@@ -10,7 +12,9 @@ const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 const getHash = customAlphabet(characters, 4);
 
-export default async function createLink(props: FormData) {
+export default async function createLink(
+  props: FormData
+): Promise<CreateLinkReturnData> {
   try {
     const link = props.get("url");
     const title = props.get("title");
@@ -18,8 +22,21 @@ export default async function createLink(props: FormData) {
     const alias = props.get("alias");
     const database = await connectToDatabase();
     const urlInfoCollection = database.collection(COLLECTION_NAMES["url-info"]);
+    let linkExists: WithId<Document> | null;
+    if (!!alias) {
+      linkExists = await urlInfoCollection.findOne({ alias });
+      if (!!linkExists) {
+        return {
+          data: null,
+          status: "ERROR",
+          error: "alias_exists",
+        };
+      }
+    } else {
+      linkExists = await urlInfoCollection.findOne({ link });
+    }
+
     const hash = alias ?? getHash();
-    const linkExists = await urlInfoCollection.findOne({ link });
     const shortUrl = `${process.env.HOST}/${hash}`;
     const payload = { link, title, description, alias, hash, shortUrl };
     if (!linkExists) {
@@ -28,10 +45,13 @@ export default async function createLink(props: FormData) {
         createdAt: new Date(),
       });
       return {
-        shortUrl: shortUrl,
-        link,
-        created: created.acknowledged,
-        update: false,
+        data: {
+          shortUrl: shortUrl,
+          link,
+          created: created.acknowledged,
+          update: false,
+        },
+        status: "SUCCESS",
       };
     } else {
       const diffObj = filterDifferentKeys(payload, linkExists);
@@ -48,22 +68,32 @@ export default async function createLink(props: FormData) {
           }
         );
         return {
-          shortUrl: linkExists?.shortUrl || shortUrl,
-          link,
-          created: false,
-          update: update.acknowledged,
-          ...diffObj,
+          data: {
+            shortUrl: linkExists?.shortUrl || shortUrl,
+            link,
+            created: false,
+            update: update.acknowledged,
+            ...diffObj,
+          },
+          status: "SUCCESS",
         };
       }
     }
 
     return {
-      shortUrl: linkExists?.shortUrl || shortUrl,
-      link,
-      created: !linkExists,
-      update: false,
+      data: {
+        shortUrl: linkExists?.shortUrl || shortUrl,
+        link,
+        created: !linkExists,
+        update: false,
+      },
+      status: "SUCCESS",
     };
   } catch (e: any) {
-    return null;
+    return {
+      data: null,
+      status: "ERROR",
+      error: e,
+    };
   }
 }

@@ -6,19 +6,12 @@ import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import type React from "react";
 
 interface SubmitProps
-  extends Omit<
-    React.DetailedHTMLProps<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
-    >,
-    "type"
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
   > {}
 
 export default function Submit(props: SubmitProps) {
   const { pending }: import("react-dom").FormStatus = useFormStatus();
-  return (
-    <button {...props} type="submit" disabled={pending}>
-      Shorten URL
-    </button>
-  );
+  return <button type="submit" {...props} disabled={pending} />;
 }
