@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
   const data = await createLink(formData);
 
-  if (!data) {
+  if (!data || data.status === "ERROR") {
     return NextResponse.json({
       type: "Error",
       code: 500,
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     type: "Success",
     message: "Created successfully",
-    status: data.created ? 201 : 200,
+    status: data.data?.created ? 201 : 200,
     data,
   });
 }
