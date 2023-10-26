@@ -3,7 +3,7 @@ import getLinkData from "../utils/get-link";
 
 export default async function Alias(props: { params: { alias: string } }) {
   const alias = props.params.alias;
-  const shortLink = await getLinkData(alias);
+  const shortLink = (await getLinkData(alias))?.link;
   redirect(!!shortLink ? shortLink : "/");
-  return <div>{shortLink}</div>;
+  return <span>{shortLink}</span>;
 }
