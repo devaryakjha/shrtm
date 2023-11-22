@@ -1,22 +1,8 @@
-"use client";
-import { redirect, useParams } from "next/navigation";
 import getLinkData from "../utils/get-link";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import RedirectToLink from "./redirect_client";
 
-export default function Alias() {
-  const { query, pathname } = useRouter();
-  useEffect(() => {
-    const alias = query.alias as string;
-    getLinkData(alias).then((data) => {
-      if (!data) {
-        redirect("/");
-      }
-      const shortLink = data?.link;
-      redirect(!!shortLink ? shortLink : "/");
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return <span>{"Redirecting...."}</span>;
+export default async function Alias(props: { params: { alias: string } }) {
+  const alias = props.params.alias;
+  const shortLink = (await getLinkData(alias))?.link;
+  return <RedirectToLink link={shortLink || "/"} />;
 }
