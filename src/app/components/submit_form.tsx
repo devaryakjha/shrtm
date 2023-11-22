@@ -10,6 +10,11 @@ interface SubmitProps
   > {}
 
 export default function Submit(props: SubmitProps) {
+  const { children, ...rest } = props;
   const { pending } = useFormStatus();
-  return <button type="submit" {...props} disabled={pending} />;
+  return (
+    <button type="submit" {...rest} disabled={pending}>
+      {pending ? "Crearing..." : children}
+    </button>
+  );
 }
