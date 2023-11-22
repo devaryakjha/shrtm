@@ -1,9 +1,20 @@
+"use client";
 import { redirect } from "next/navigation";
 import getLinkData from "../utils/get-link";
+import { useEffect } from "react";
 
-export default async function Alias(props: { params: { alias: string } }) {
-  const alias = props.params.alias;
-  const shortLink = (await getLinkData(alias))?.link;
-  redirect(!!shortLink ? shortLink : "/");
-  return <span>{shortLink}</span>;
+export default function Alias(props: { params: { alias: string } }) {
+  useEffect(() => {
+    const alias = props.params.alias;
+    getLinkData(alias).then((data) => {
+      if (!data) {
+        redirect("/");
+      }
+      const shortLink = data?.link;
+      redirect(!!shortLink ? shortLink : "/");
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return <span>{"Redirecting...."}</span>;
 }
