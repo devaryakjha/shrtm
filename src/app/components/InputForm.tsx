@@ -17,6 +17,7 @@ export function InputForm({ errorMessage }: { errorMessage?: string }) {
           label="Shorten your URL"
           styles={styles}
           leadingIcon={<LinkOutlined />}
+          value={"https://www.google.com"}
         />
         <Input
           id="title"
@@ -27,6 +28,7 @@ export function InputForm({ errorMessage }: { errorMessage?: string }) {
           label="Customize your Link"
           styles={styles}
           leadingIcon={<EditOutlined />}
+          value={"Google"}
         />
         <Input
           id="description"
@@ -35,6 +37,7 @@ export function InputForm({ errorMessage }: { errorMessage?: string }) {
           aria-label="Custom Description"
           placeholder="Enter description"
           styles={styles}
+          value={"Google Search Engine"}
         />
         <Input
           id="alias"
@@ -43,6 +46,7 @@ export function InputForm({ errorMessage }: { errorMessage?: string }) {
           aria-label="Custom Alias"
           placeholder="Enter alias"
           styles={styles}
+          value={"google"}
         />
       </div>
       {errorMessage && (

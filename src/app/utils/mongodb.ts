@@ -1,6 +1,7 @@
+"use server";
 // ./mongodb.ts
 
-import { Db, MongoClient, MongoClientOptions } from "mongodb";
+import { type Db, MongoClient, type MongoClientOptions } from "mongodb";
 
 // Create cached connection variable
 let cachedDB: Db | undefined;
