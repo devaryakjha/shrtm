@@ -1,5 +1,3 @@
-"use server";
-
 import { customAlphabet } from "nanoid";
 import connectToDatabase from "@/app/utils/mongodb";
 import { filterDifferentKeys } from "./filterDifferentKeys";

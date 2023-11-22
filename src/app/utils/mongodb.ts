@@ -1,4 +1,3 @@
-"use server";
 // ./mongodb.ts
 
 import { type Db, MongoClient, type MongoClientOptions } from "mongodb";
