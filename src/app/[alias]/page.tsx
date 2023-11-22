@@ -1,11 +1,13 @@
 "use client";
-import { redirect } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import getLinkData from "../utils/get-link";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-export default function Alias(props: { params: { alias: string } }) {
+export default function Alias() {
+  const { query, pathname } = useRouter();
   useEffect(() => {
-    const alias = props.params.alias;
+    const alias = query.alias as string;
     getLinkData(alias).then((data) => {
       if (!data) {
         redirect("/");
