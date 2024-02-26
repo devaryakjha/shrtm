@@ -9,7 +9,9 @@ type Props = {
 
 export async function generateStaticParams() {
   const allAliases = await getAllAliases();
-  return allAliases.filter((data) => !!data.alias);
+  return allAliases
+    .map((data) => ({ alias: data.alias as string | undefined }))
+    .filter((data) => !!data.alias);
 }
 
 export default function DashboardLayout({
@@ -21,20 +23,26 @@ export default function DashboardLayout({
 }
 
 export async function generateMetadata(
-  { params: { title, description, link } }: Props,
-  resolveParent: ResolvingMetadata,
+  { params: { alias } }: Props,
+  _: ResolvingMetadata,
 ): Promise<Metadata> {
-  const parent = await resolveParent;
+  const parent = await _;
+  const linkData = await getLinkData(alias);
+  const title = linkData?.title || parent.title || "404";
+  const description = linkData?.description || parent.description || "404";
+  const link = `https://shrtm.in/${alias}` || parent.alternates?.canonical;
+  const ogLink =
+    `https://shrtm.in/${alias}` || (parent.openGraph?.url ?? undefined);
   return {
-    title: title || parent.title || "404",
-    description: description || parent.description || "404",
+    title,
+    description,
     alternates: {
-      canonical: link || parent.alternates?.canonical,
+      canonical: link,
     },
     openGraph: {
       title,
       description,
-      url: link || parent.openGraph?.url,
+      url: ogLink,
     },
   };
 }
