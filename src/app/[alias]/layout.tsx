@@ -1,5 +1,16 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import getLinkData from "../utils/get-link";
+import getAllAliases from "../utils/get-all-aliases";
+import type { WithId, Document } from "mongodb";
+
+type Props = {
+  params: { alias: string } & WithId<Document>;
+};
+
+export async function generateStaticParams() {
+  const allAliases = await getAllAliases();
+  return allAliases.filter((data) => !!data.alias);
+}
 
 export default function DashboardLayout({
   children,
@@ -9,31 +20,21 @@ export default function DashboardLayout({
   return <section>{children}</section>;
 }
 
-type Props = {
-  params: { alias: string };
-};
-
 export async function generateMetadata(
-  { params: { alias } }: Props,
-  _: ResolvingMetadata
+  { params: { title, description, link } }: Props,
+  resolveParent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const parent = await _;
-  const linkData = await getLinkData(alias);
-  const title = linkData?.title || parent.title || "404";
-  const description = linkData?.description || parent.description || "404";
-  const link = `https://shrtm.in/${alias}` || parent.alternates?.canonical;
-  const ogLink =
-    `https://shrtm.in/${alias}` || (parent.openGraph?.url ?? undefined);
+  const parent = await resolveParent;
   return {
-    title,
-    description,
+    title: title || parent.title || "404",
+    description: description || parent.description || "404",
     alternates: {
-      canonical: link,
+      canonical: link || parent.alternates?.canonical,
     },
     openGraph: {
       title,
       description,
-      url: ogLink,
+      url: link || parent.openGraph?.url,
     },
   };
 }

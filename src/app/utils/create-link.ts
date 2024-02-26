@@ -13,7 +13,7 @@ const characters =
 const getHash = customAlphabet(characters, 4);
 
 export default async function createLink(
-  props: FormData
+  props: FormData,
 ): Promise<CreateLinkReturnData> {
   try {
     const link = props.get("url");
@@ -65,7 +65,7 @@ export default async function createLink(
               ...diffObj,
               updatedAt: new Date(),
             },
-          }
+          },
         );
         return {
           data: {
@@ -92,7 +92,7 @@ export default async function createLink(
   } catch (e: any) {
     return {
       status: "ERROR",
-      error: e,
+      error: e.toString(),
     };
   }
 }
