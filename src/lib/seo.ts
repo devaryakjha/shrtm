@@ -5,6 +5,7 @@ const seoMetadata: Metadata = {
   title: "shrtm.in - Shorten URLs with ease",
   description:
     "Shorten your long URLs with shrtm.in and share them easily on social media. Fast, reliable, and free!",
+  keywords: [],
   alternates: {
     canonical: "/",
   },
