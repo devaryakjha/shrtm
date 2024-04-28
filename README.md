@@ -1,82 +1,36 @@
-# Shrtm.in - The Efficient URL Shortener
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Shrtm.in is a cutting-edge URL shortening service designed to simplify and enhance your web navigation experience. With the rise of long and unwieldy URLs, we provide a streamlined solution to make sharing and accessing web links a breeze. Our service allows you to convert lengthy URLs into concise, easy-to-remember links in a matter of seconds. Whether you're sharing links on social media, in emails, or on your website, Shrtm.in makes it simple and efficient.
+## Getting Started
 
-## Features
-
-- Lightning-fast URL shortening: Quickly transform long URLs into short and memorable links.
-- Customization: Personalize your shortened URLs with custom aliases to reflect your brand or message.
-
-## Tech Stack
-
-**Client:** Next.js, TailwindCSS
-
-**Server:** Next.js
-
-## Run Locally
-
-Clone the project
+First, run the development server:
 
 ```bash
-  git clone https://github.com/devaryakjha/url-shortener
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Go to the project directory
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-  cd url-shortener
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Install dependencies
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-```bash
-  yarn
-```
+## Learn More
 
-Start the server
+To learn more about Next.js, take a look at the following resources:
 
-```bash
-  yarn dev
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Environment Variables
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-To run this project, you will need to add the following environment variables to your .env file
+## Deploy on Vercel
 
-`MONGODB_URI`
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-`HOST`
-
-## 🛠 Skills
-
-Javascript, HTML, CSS, MongoDb
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Demo
-
-https://shrtm.in/
-
-## Authors
-
-- [@devaryakjha](https://www.github.com/devaryakjha)
-
-## 🚀 About Me
-
-Hello there! 👋
-
-I'm a 23-year-old frontend software developer based in Mumbai, India. Currently, I work at Tifin, a fintech startup based in the United States, where I contribute to building innovative and user-friendly software solutions.
-
-Outside of work, I have a passion for exploring the magical world of Harry Potter and consider myself a devoted Potterhead. In my free time, you'll often find me engrossed in watching anime series or diving into captivating sci-fi movies and TV shows. I thoroughly enjoy indulging in these forms of entertainment, which not only entertain but also inspire me creatively.
-
-Through my GitHub projects, I aim to showcase my skills and expertise as a frontend developer. I strive to create well-designed, efficient, and user-centric applications that make a positive impact. I believe in continuous learning and constantly honing my craft to stay up to date with the latest trends and technologies.
-
-Thank you for visiting my GitHub profile. Feel free to explore my projects and don't hesitate to reach out if you have any questions or collaborations in mind. Let's connect and build amazing things together!
-
-Happy coding! ✨
-
-## 🔗 Links
-
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/devaryakjha)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
